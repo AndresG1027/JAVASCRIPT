@@ -1,0 +1,126 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #4a4a88;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+nav {
+    background-color: #fdfdfd;
+    padding: 15px;
+    text-align: center;
+    border-bottom: 2px solid #ddd;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.nav-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-grupo strong {
+    font-size: 1.1em;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+nav button {
+    background-color: #e0e0e0;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+nav button:hover {
+    background-color: #c9c9c9;
+}
+
+main {
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.instruccion-central {
+    text-align: center;
+    font-size: 1.2em;
+    color: #888;
+}
+
+.ejercicio-card {
+    display: none;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 25px;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.ejercicio-card h3 {
+    margin-top: 0;
+    color: #4a4a88;
+}
+
+.ejercicio-card input {
+    display: block;
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.ejercicio-card button {
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.ejercicio-card button:hover {
+    background-color: #4a9d4a;
+}
+
+.resultado {
+    margin-top: 20px;
+    font-size: 1.1em;
+    font-weight: bold;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-left: 5px solid #ccc;
+}
+
+.texto-normal {
+    border-left-color: #5cb85c;
+    color: #3d7a3d;
+}
+
+.texto-elevado {
+    border-left-color: #f0ad4e;
+    color: #b07c2a;
+}
+
+.texto-alerta {
+    border-left-color: #d9534f;
+    color: #a94442;
+}
