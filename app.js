@@ -26,8 +26,6 @@ function mostrarResultado(idElemento, mensaje, claseColor) {
     }
 }
 
-// --- FUNCIONES HELPER PARA PROMPTS ---
-
 function recolectarNumeros(textoPrompt, valorParada = 0) {
     let numeros = [];
     let valor;
@@ -48,8 +46,6 @@ function recolectarNumeros(textoPrompt, valorParada = 0) {
     }
     return numeros;
 }
-
-// --- SALUD ---
 
 function calcularPresion() {
     const sistolica = parseInt(prompt("Ingresa la presión sistólica (ej: 120)"));
@@ -170,7 +166,7 @@ function registrarSaturacion() {
         const valor = prompt("Ingresa medición de SpO2 (ej: 98). Escribe 'no' para parar.");
         
         if (valor === null) {
-            entrada = 'no'; // Salir si presiona Cancelar
+            entrada = 'no';
         } else if (valor.toLowerCase() === 'no') {
             entrada = 'no';
         } else {
@@ -194,8 +190,6 @@ function registrarSaturacion() {
                      Plus: Mediciones bajas (< 95%): ${conteoBajo}.`;
     mostrarResultado('res-spo2', mensaje, 'texto-normal');
 }
-
-// --- MEDIO AMBIENTE ---
 
 function clasificarAQI() {
     const aqi = parseInt(prompt("Ingresa el valor AQI (ej: 45)"));
@@ -339,8 +333,6 @@ function monitorearRio() {
     }
 }
 
-// --- ASTRONOMÍA ---
-
 function clasificarBrillo() {
     const magnitud = parseFloat(prompt("Ingresa la magnitud aparente (ej: -1.5)"));
     let mensaje = '';
@@ -418,7 +410,7 @@ function contarCrateres() {
     const mensaje = `Total cráteres registrados: ${crateres.length}. <br>
                      Cráteres grandes (> 50km): ${contadorGrandes}. <br>
                      Plus: Diámetro promedio de los grandes: ${promedioGrandes.toFixed(2)} km.`;
-    mostrarResultado('res-crateres', mensaje, 'texto-elevado');
+    mostrarResultado('res-crateres',mensaje,'texto-elevado');
 }
 
 function identificarCuerpo() {
