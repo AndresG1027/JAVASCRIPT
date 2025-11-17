@@ -26,6 +26,8 @@ function mostrarResultado(idElemento, mensaje, claseColor) {
     }
 }
 
+// --- SALUD ---
+
 function calcularPresion() {
     const sistolica = parseInt(document.getElementById('sistolica').value);
     const diastolica = parseInt(document.getElementById('diastolica').value);
@@ -60,7 +62,7 @@ function calcularPresion() {
 
 function calcularPromedioTemps() {
     const input = document.getElementById('temps-pacientes').value;
-    const temps = input.split(',').map(Number);
+    const temps = input.split(',').map(Number).filter(Boolean);
     let suma = 0;
     let min = temps[0];
     let max = temps[0];
@@ -80,18 +82,29 @@ function calcularPromedioTemps() {
 }
 
 function contarFiebre() {
-    const input = document.getElementById('temps-fiebre').value;
-    const temps = input.split(',').map(Number);
     let contadorFiebre = 0;
-    let i = 0;
+    let totalRegistros = 0;
+    let temp;
 
-    while (i < temps.length) {
-        if (temps[i] >= 38) {
+    while (true) {
+        const entrada = prompt("Ingresa temperatura (°C). Escribe '0' para terminar.");
+        temp = parseFloat(entrada);
+        
+        if (isNaN(temp)) {
+            alert("Por favor, ingresa un número.");
+            continue;
+        }
+        
+        if (temp === 0) {
+            break;
+        }
+        
+        totalRegistros++;
+        if (temp >= 38) {
             contadorFiebre++;
         }
-        i++;
     }
-    const mensaje = `Total de registros: ${temps.length}. <br>
+    const mensaje = `Total de registros: ${totalRegistros}. <br>
                      Plus: Pacientes con fiebre (>= 38°C): ${contadorFiebre}.`;
     mostrarResultado('res-fiebre', mensaje, 'texto-elevado');
 }
@@ -126,26 +139,39 @@ function clasificarTriage() {
 }
 
 function registrarSaturacion() {
-    const input = document.getElementById('mediciones-spo2').value;
-    const mediciones = input.split(',').map(Number);
-    let i = 0;
+    let mediciones = [];
     let conteoNormal = 0;
     let conteoBajo = 0;
+    let entrada;
 
     do {
-        if (mediciones[i] >= 95) {
-            conteoNormal++;
-        } else if (mediciones[i] < 95 && mediciones[i] > 0) {
-            conteoBajo++;
+        const valor = prompt("Ingresa medición de SpO2 (ej: 98). Escribe 'no' para parar.");
+        
+        if (valor && valor.toLowerCase() === 'no') {
+            entrada = 'no';
+        } else {
+            const spo2 = parseFloat(valor);
+            if (!isNaN(spo2) && spo2 > 0 && spo2 <= 100) {
+                mediciones.push(spo2);
+                if (spo2 >= 95) {
+                    conteoNormal++;
+                } else {
+                    conteoBajo++;
+                }
+            } else if (valor !== null) {
+                alert("Valor no válido. Ingresa un número (1-100) o 'no'.");
+            }
+            entrada = valor;
         }
-        i++;
-    } while (i < mediciones.length);
-
+    } while (entrada && entrada.toLowerCase() !== 'no');
+    
     const mensaje = `Total mediciones: ${mediciones.length}. <br>
                      Plus: Mediciones normales (>= 95%): ${conteoNormal}. <br>
                      Plus: Mediciones bajas (< 95%): ${conteoBajo}.`;
     mostrarResultado('res-spo2', mensaje, 'texto-normal');
 }
+
+// --- MEDIO AMBIENTE ---
 
 function clasificarAQI() {
     const aqi = parseInt(document.getElementById('valor-aqi').value);
@@ -175,7 +201,7 @@ function clasificarAQI() {
 
 function calcularPromedioRuido() {
     const input = document.getElementById('mediciones-ruido').value;
-    const ruidos = input.split(',').map(Number);
+    const ruidos = input.split(',').map(Number).filter(Boolean);
     let suma = 0;
 
     for (let i = 0; i < ruidos.length; i++) {
@@ -195,23 +221,33 @@ function calcularPromedioRuido() {
 }
 
 function contarFocosCalor() {
-    const input = document.getElementById('temps-focos').value;
-    const temps = input.split(',').map(Number);
     let contadorFocos = 0;
     let maxTemp = 0;
-    let i = 0;
+    let totalRegistros = 0;
+    let temperatura;
 
-    while (i < temps.length) {
-        const temp = temps[i];
-        if (temp > 45) {
+    while (true) {
+        const entrada = prompt("Ingresa una temperatura (°C). Escribe '0' para terminar.");
+        temperatura = parseFloat(entrada);
+        
+        if (isNaN(temperatura)) {
+            alert("Por favor, ingresa solo números.");
+            continue;
+        }
+        
+        if (temperatura === 0) {
+            break;
+        }
+
+        totalRegistros++;
+        if (temperatura > 45) {
             contadorFocos++;
         }
-        if (temp > maxTemp) {
-            maxTemp = temp;
+        if (temperatura > maxTemp) {
+            maxTemp = temperatura;
         }
-        i++;
     }
-    const mensaje = `Total registros: ${temps.length}. <br>
+    const mensaje = `Total registros válidos: ${totalRegistros}. <br>
                      Focos de calor (> 45°C): ${contadorFocos}. <br>
                      Plus: Temperatura máxima registrada: ${maxTemp}°C.`;
     mostrarResultado('res-incendios', mensaje, 'texto-elevado');
@@ -241,24 +277,34 @@ function clasificarResiduo() {
 }
 
 function monitorearRio() {
-    const input = document.getElementById('niveles-rio').value;
-    const niveles = input.split(',').map(Number);
-    let i = 0;
     let alertas = 0;
     let maxNivel = 0;
+    let totalRegistros = 0;
+    let entrada;
 
     do {
-        const nivel = niveles[i];
-        if (nivel > 3) {
-            alertas++;
+        const valor = prompt("Ingresa nivel del río (metros). Escribe 'no' para parar.");
+        
+        if (valor && valor.toLowerCase() === 'no') {
+            entrada = 'no';
+        } else {
+            const nivel = parseFloat(valor);
+            if (!isNaN(nivel) && nivel >= 0) {
+                totalRegistros++;
+                if (nivel > 3) {
+                    alertas++;
+                }
+                if (nivel > maxNivel) {
+                    maxNivel = nivel;
+                }
+            } else if (valor !== null) {
+                alert("Valor no válido. Ingresa un número o 'no'.");
+            }
+            entrada = valor;
         }
-        if (nivel > maxNivel) {
-            maxNivel = nivel;
-        }
-        i++;
-    } while (i < niveles.length);
+    } while (entrada && entrada.toLowerCase() !== 'no');
 
-    let mensaje = `Total mediciones: ${niveles.length}. <br>
+    let mensaje = `Total mediciones: ${totalRegistros}. <br>
                    Mediciones sobre 3m: ${alertas}. <br>
                    Plus: Nivel máximo registrado: ${maxNivel}m.`;
     
@@ -268,6 +314,8 @@ function monitorearRio() {
         mostrarResultado('res-rio', mensaje, 'texto-normal');
     }
 }
+
+// --- ASTRONOMÍA ---
 
 function clasificarBrillo() {
     const magnitud = parseFloat(document.getElementById('magnitud-estelar').value);
@@ -295,7 +343,7 @@ function clasificarBrillo() {
 
 function calcularPromedioDistancias() {
     const input = document.getElementById('distancias-planetas').value;
-    const distancias = input.split(',').map(Number);
+    const distancias = input.split(',').map(Number).filter(Boolean);
     let suma = 0;
     let min = distancias[0];
     let max = distancias[0];
@@ -315,26 +363,37 @@ function calcularPromedioDistancias() {
 }
 
 function contarCrateres() {
-    const input = document.getElementById('diametros-crateres').value;
-    const crateres = input.split(',').map(Number);
     let contadorGrandes = 0;
     let sumaGrandes = 0;
-    let i = 0;
+    let totalRegistros = 0;
+    let diametro;
 
-    while (i < crateres.length) {
-        if (crateres[i] > 50) {
-            contadorGrandes++;
-            sumaGrandes += crateres[i];
+    while (true) {
+        const entrada = prompt("Ingresa diámetro de cráter (km). Escribe '0' para terminar.");
+        diametro = parseFloat(entrada);
+        
+        if (isNaN(diametro)) {
+            alert("Por favor, ingresa solo números.");
+            continue;
         }
-        i++;
-    }
+        
+        if (diametro === 0) {
+            break;
+        }
 
+        totalRegistros++;
+        if (diametro > 50) {
+            contadorGrandes++;
+            sumaGrandes += diametro;
+        }
+    }
+    
     let promedioGrandes = 0;
     if (contadorGrandes > 0) {
         promedioGrandes = sumaGrandes / contadorGrandes;
     }
     
-    const mensaje = `Total cráteres registrados: ${crateres.length}. <br>
+    const mensaje = `Total cráteres registrados: ${totalRegistros}. <br>
                      Cráteres grandes (> 50km): ${contadorGrandes}. <br>
                      Plus: Diámetro promedio de los grandes: ${promedioGrandes.toFixed(2)} km.`;
     mostrarResultado('res-crateres', mensaje, 'texto-elevado');
@@ -367,22 +426,32 @@ function identificarCuerpo() {
 }
 
 function registrarLuz() {
-    const input = document.getElementById('niveles-luz').value;
-    const niveles = input.split(',').map(Number);
-    let i = 0;
     let alertasNoche = 0;
     let alertasTexto = '';
+    let totalRegistros = 0;
+    let entrada;
 
     do {
-        const nivel = niveles[i];
-        if (nivel < 5) {
-            alertasNoche++;
-            alertasTexto += `Medición ${i+1}: ${nivel} lux (Noche profunda). <br>`;
+        const valor = prompt("Ingresa nivel de luz (lux). Escribe 'no' para parar.");
+        
+        if (valor && valor.toLowerCase() === 'no') {
+            entrada = 'no';
+        } else {
+            const nivel = parseFloat(valor);
+            if (!isNaN(nivel) && nivel >= 0) {
+                totalRegistros++;
+                if (nivel < 5) {
+                    alertasNoche++;
+                    alertasTexto += `Medición ${totalRegistros}: ${nivel} lux (Noche profunda). <br>`;
+                }
+            } else if (valor !== null) {
+                alert("Valor no válido. Ingresa un número o 'no'.");
+            }
+            entrada = valor;
         }
-        i++;
-    } while (i < niveles.length);
+    } while (entrada && entrada.toLowerCase() !== 'no');
 
-    const mensaje = `Total mediciones: ${niveles.length}. <br>
+    const mensaje = `Total mediciones: ${totalRegistros}. <br>
                      Plus: Registros de 'Noche Profunda' (< 5 lux): ${alertasNoche}. <br><br>
                      ${alertasTexto}`;
     mostrarResultado('res-luz', mensaje, 'texto-normal');
