@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Final - Ejercicios JS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Proyecto Final de JavaScript</h1>
+        <p>Refactorización de ejercicios y ampliación funcional</p>
+    </header>
+
+    <nav>
+        <div class="nav-grupo">
+            <strong>Salud</strong>
+            <button onclick="mostrarEjercicio('ej-presion')">1. Presión Arterial</button>
+            <button onclick="mostrarEjercicio('ej-temperatura')">2. Temp. Pacientes</button>
+            <button onclick="mostrarEjercicio('ej-fiebre')">3. Conteo Fiebre</button>
+            <button onclick="mostrarEjercicio('ej-triage')">4. TRIAGE</button>
+            <button onclick="mostrarEjercicio('ej-spo2')">5. Saturación SpO2</button>
+        </div>
+        <div class="nav-grupo">
+            <strong>Medio Ambiente</strong>
+            <button onclick="mostrarEjercicio('ej-aqi')">1. Calidad del Aire (AQI)</button>
+            <button onclick="mostrarEjercicio('ej-ruido')">2. Niveles de Ruido</button>
+            <button onclick="mostrarEjercicio('ej-incendios')">3. Focos de Calor</button>
+            <button onclick="mostrarEjercicio('ej-residuos')">4. Tipo de Residuo</button>
+            <button onclick="mostrarEjercicio('ej-rio')">5. Nivel del Río</button>
+        </div>
+        <div class="nav-grupo">
+            <strong>Astronomía</strong>
+            <button onclick="mostrarEjercicio('ej-brillo')">1. Brillo Estelar</button>
+            <button onclick="mostrarEjercicio('ej-distancias')">2. Distancias Planetas</button>
+            <button onclick="mostrarEjercicio('ej-crateres')">3. Cráteres Lunares</button>
+            <button onclick="mostrarEjercicio('ej-cuerpo')">4. Cuerpo Celeste</button>
+            <button onclick="mostrarEjercicio('ej-luz')">5. Niveles de Luz</button>
+        </div>
+    </nav>
+
+    <main id="contenedor-ejercicios">
+        <p class="instruccion-central">Selecciona un ejercicio del menú para comenzar.</p>
+
+        <div id="ej-presion" class="ejercicio-card">
+            <h3>1. Clasificación de Presión Arterial (IF)</h3>
+            <p>Ingresa la presión sistólica y diastólica para clasificarlas.</p>
+            <input type="number" id="sistolica" placeholder="Sistólica (ej: 120)">
+            <input type="number" id="diastolica" placeholder="Diastólica (ej: 80)">
+            <button onclick="calcularPresion()">Clasificar</button>
+            <p class="resultado" id="res-presion"></p>
+        </div>
+
+        <div id="ej-temperatura" class="ejercicio-card">
+            <h3>2. Registro de Temperaturas (FOR)</h3>
+            <p>Ingresa las temperaturas de los pacientes separadas por comas (ej: 36.5, 38, 37.2).</p>
+            <input type="text" id="temps-pacientes" placeholder="36.5, 38, 37.2">
+            <button onclick="calcularPromedioTemps()">Calcular Promedio</button>
+            <p class="resultado" id="res-temperatura"></p>
+        </div>
+
+        <div id="ej-fiebre" class="ejercicio-card">
+            <h3>3. Conteo de Pacientes con Fiebre (WHILE)</h3>
+            <p>Haz clic para ingresar temperaturas una por una. El programa se detendrá al ingresar **0**.</p>
+            <button onclick="contarFiebre()">Iniciar Conteo</button>
+            <p class="resultado" id="res-fiebre"></p>
+        </div>
+
+        <div id="ej-triage" class="ejercicio-card">
+            <h3>4. Clasificación de TRIAGE (SWITCH)</h3>
+            <p>Ingresa un código de Triage (1 a 4) para ver la categoría.</p>
+            <input type="number" id="codigo-triage" placeholder="Código (1-4)">
+            <button onclick="clasificarTriage()">Clasificar</button>
+            <p class="resultado" id="res-triage"></p>
+        </div>
+
+        <div id="ej-spo2" class="ejercicio-card">
+            <h3>5. Mediciones de Saturación SpO2 (DO-WHILE)</h3>
+            <p>Haz clic para ingresar mediciones de SpO2 una por una. El programa se detendrá al ingresar **'no'**.</p>
+            <button onclick="registrarSaturacion()">Registrar</button>
+            <p class="resultado" id="res-spo2"></p>
+        </div>
+
+        <div id="ej-aqi" class="ejercicio-card">
+            <h3>1. Clasificación de Calidad del Aire (IF)</h3>
+            <p>Ingresa el valor AQI (Índice de Calidad del Aire) para clasificarlo.</p>
+            <input type="number" id="valor-aqi" placeholder="Valor AQI (ej: 45)">
+            <button onclick="clasificarAQI()">Clasificar</button>
+            <p class="resultado" id="res-aqi"></p>
+        </div>
+
+        <div id="ej-ruido" class="ejercicio-card">
+            <h3>2. Niveles de Ruido Ambiental (FOR)</h3>
+            <p>Ingresa varias mediciones de decibelios (dB) separadas por comas.</p>
+            <input type="text" id="mediciones-ruido" placeholder="70, 85, 65, 90">
+            <button onclick="calcularPromedioRuido()">Calcular Promedio</button>
+            <p class="resultado" id="res-ruido"></p>
+        </div>
+
+        <div id="ej-incendios" class="ejercicio-card">
+            <h3>3. Focos de Calor (WHILE)</h3>
+            <p>Haz clic para ingresar temperaturas una por una. El programa se detendrá al ingresar **0**.</p>
+            <button onclick="contarFocosCalor()">Contar Focos</button>
+            <p class="resultado" id="res-incendios"></p>
+        </div>
+
+        <div id="ej-residuos" class="ejercicio-card">
+            <h3>4. Clasificación de Residuos (SWITCH)</h3>
+            <p>Ingresa un código (1-4) para identificar el tipo de residuo.</p>
+            <input type="number" id="codigo-residuo" placeholder="Código (1-4)">
+            <button onclick="clasificarResiduo()">Clasificar</button>
+            <p class="resultado" id="res-residuos"></p>
+        </div>
+
+        <div id="ej-rio" class="ejercicio-card">
+            <h3>5. Monitoreo Nivel del Río (DO-WHILE)</h3>
+            <p>Haz clic para ingresar niveles del río uno por uno. El programa se detendrá al ingresar **'no'**.</p>
+            <button onclick="monitorearRio()">Monitorear</button>
+            <p class="resultado" id="res-rio"></p>
+        </div>
+
+        <div id="ej-brillo" class="ejercicio-card">
+            <h3>1. Clasificación de Brillo Estelar (IF)</h3>
+            <p>Ingresa la magnitud aparente de una estrella para clasificar su brillo.</p>
+            <input type="number" id="magnitud-estelar" placeholder="Magnitud (ej: -1.5)">
+            <button onclick="clasificarBrillo()">Clasificar</button>
+            <p class="resultado" id="res-brillo"></p>
+        </div>
+
+        <div id="ej-distancias" class="ejercicio-card">
+            <h3>2. Distancias de Planetas (FOR)</h3>
+            <p>Ingresa varias distancias planetarias (en millones de km) separadas por comas.</p>
+            <input type="text" id="distancias-planetas" placeholder="57.9, 108.2, 149.6">
+            <button onclick="calcularPromedioDistancias()">Calcular Promedio</button>
+            <p class="resultado" id="res-distancias"></p>
+        </div>
+
+        <div id="ej-crateres" class="ejercicio-card">
+            <h3>3. Conteo de Cráteres Lunares (WHILE)</h3>
+            <p>Haz clic para ingresar diámetros de cráteres uno por uno. El programa se detendrá al ingresar **0**.</p>
+            <button onclick="contarCrateres()">Contar Cráteres</button>
+            <p class="resultado" id="res-crateres"></p>
+        </div>
+
+        <div id="ej-cuerpo" class="ejercicio-card">
+            <h3>4. Identificar Cuerpo Celeste (SWITCH)</h3>
+            <p>Ingresa un código (1-5) para identificar el cuerpo celeste.</p>
+            <input type="number" id="codigo-cuerpo" placeholder="Código (1-5)">
+            <button onclick="identificarCuerpo()">Identificar</button>
+            <p class="resultado" id="res-cuerpo"></p>
+        </div>
+
+        <div id="ej-luz" class="ejercicio-card">
+            <h3>5. Registro de Niveles de Luz (DO-WHILE)</h3>
+            <p>Haz clic para ingresar niveles de luz uno por uno. El programa se detendrá al ingresar **'no'**.</p>
+            <button onclick="registrarLuz()">Registrar</button>
+            <p class="resultado" id="res-luz"></p>
+        </div>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
